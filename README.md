@@ -4,10 +4,7 @@ Scroll Tracker
 
 A small library for tracking scroll position as a percentage.
 
-[![NPM version][shield-npm]][npm]
-[![Node.js version support][shield-node]][node]
-[![Build status][shield-build]](#)
-[![MIT licensed][shield-license]](#)
+[![Build status][shield-build]](https://circleci.com/gh/Financial-Times/scroll-tracker)
 
 ```js
 /*
@@ -65,10 +62,10 @@ The `ScrollTracker` variable is a constructor.
 
 Construct a new ScrollTracker instance.
 
-`element` is the element to track scroll percentage of (_HTMLElement_).
-`buckets` is the set of scroll percentages to track (_Array[Number...]_).
-`callback` is the function to be called when page has scrolled into a bucket (_Function (Array[Number...])_).
-`delay` is the amount of milliseconds to wait between calling the callback (_Number_).
+- `element` is the element to track scroll percentage of (_HTMLElement_).
+- `buckets` is the set of scroll percentages to track (_Array[Number...]_).
+- `callback` is the function to be called when page has scrolled into a bucket (_Function (Array[Number...])_).
+- `delay` is the amount of milliseconds to wait between calling the callback (_Number_).
 
 #### Example
 ```js
@@ -118,8 +115,5 @@ Scroll Tracker is licensed under the MIT license.
 [node]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [Polyfill service]: https://cdn.polyfill.io
-[shield-license]: https://img.shields.io/badge/license-MIT-blue.svg
-[shield-node]: https://img.shields.io/badge/node.js%20support-0.10–5-brightgreen.svg
-[shield-npm]: https://img.shields.io/badge/npm-v3.2.0-blue.svg
-[shield-build]: https://img.shields.io/badge/build-passing-brightgreen.svg
+[shield-build]: https://circleci.com/gh/Financial-Times/scroll-tracker.svg?style=svg
 [weakmap]: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/WeakMap#Browser_compatibility
