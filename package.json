@@ -1,7 +1,7 @@
 {
-  "name": "scroll-tracking",
+  "name": "scroll-tracker",
   "version": "1.0.0",
-  "description": "scroll tracking",
+  "description": "scroll tracker",
   "main": "src/index.js",
   "scripts": {
     "lint": "obt verify",
