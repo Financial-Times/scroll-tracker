@@ -21,7 +21,7 @@ module.exports = (function() {
           _currentBuckets = currentBuckets;
           callback(currentBuckets);
         }
-      }, delay));
+      }, delay);
       document.addEventListener('scroll', _scrollHandler);
     }
 
