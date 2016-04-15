@@ -7,22 +7,22 @@ function getPercentageViewable (element) {
 }
 
 module.exports = (function() {
-  let _scrollHandler = new WeakMap();
-  let _currentBuckets = new WeakMap();
+  let _scrollHandler;
+  let _currentBuckets;
 
   class ScrollTracker {
     constructor({element, buckets, callback, delay}) {
       this.rootEl = element;
       this.rootEl.dataset.scrollTracking = true;
-      _scrollHandler.set(this, throttle(() => {
+      _scrollHandler = throttle(() => {
         const percentage = getPercentageViewable(element);
         const currentBuckets = buckets.filter(bucket => bucket <= percentage);
-        if (!isEqual(currentBuckets, _currentBuckets.get(this))) {
-          _currentBuckets.set(this, currentBuckets);
+        if (!isEqual(currentBuckets, _currentBuckets)) {
+          _currentBuckets = currentBuckets;
           callback(currentBuckets);
         }
       }, delay));
-      document.addEventListener('scroll', _scrollHandler.get(this));
+      document.addEventListener('scroll', _scrollHandler);
     }
 
     destroy () {
