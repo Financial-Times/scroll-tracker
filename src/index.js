@@ -1,3 +1,5 @@
+'use strict';
+
 const throttle = require('lodash/throttle');
 const isEqual = require('lodash/isEqual');
 
