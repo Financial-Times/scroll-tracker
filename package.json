@@ -1,6 +1,6 @@
 {
   "name": "scroll-tracker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "scroll tracker",
   "main": "src/index.js",
   "scripts": {
