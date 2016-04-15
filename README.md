@@ -38,7 +38,6 @@ Table of Contents
 Requirements
 ------------
 
-Scroll Tracker requires [WeakMap] to work. This can be polyfilled via the [Polyfill service].
 Scroll Tracker is a CommonJS module and available on [npm]. To use within a browser, a bundling tool is required (Browserify/Webpack).
 
 Usage
@@ -114,6 +113,5 @@ Scroll Tracker is licensed under the MIT license.
 
 [node]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
-[Polyfill service]: https://cdn.polyfill.io
 [shield-build]: https://circleci.com/gh/Financial-Times/scroll-tracker.svg?style=svg
 [weakmap]: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/WeakMap#Browser_compatibility
