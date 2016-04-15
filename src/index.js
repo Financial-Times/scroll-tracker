@@ -9,26 +9,28 @@ function getPercentageViewable (element) {
   return percentage === Infinity ? 0 : percentage;
 
 }
-var s;
-var c;
-module.exports = class ScrollTracker {
-  constructor({element, buckets, callback, delay}) {
-    this.rootEl = element;
-    this.rootEl.dataset.scrollTracking = true;
-    s = throttle(() => {
-      const percentage = getPercentageViewable(element);
-      const currentBuckets = buckets.filter(bucket => bucket <= percentage);
-      if (!isEqual(currentBuckets, c)) {
-        c = currentBuckets;
-        callback(currentBuckets);
-      }
-    }, delay);
-    document.addEventListener('scroll', s);
-  }
 
-  destroy () {
-    document.removeEventListener('scroll', s);
-    delete this.rootEl.dataset.scrollTracking;
-    delete this.rootEl;
-  }
-};
+let s;
+let c;
+
+function ScrollTracker ({element, buckets, callback, delay}) {
+  this.rootEl = element;
+  this.rootEl.dataset.scrollTracking = true;
+  s = throttle(() => {
+    const percentage = getPercentageViewable(element);
+    const currentBuckets = buckets.filter(bucket => bucket <= percentage);
+    if (!isEqual(currentBuckets, c)) {
+      c = currentBuckets;
+      callback(currentBuckets);
+    }
+  }, delay);
+  document.addEventListener('scroll', s);
+}
+
+ScrollTracker.prototype.destroy = function destroy () {
+  document.removeEventListener('scroll', s);
+  delete this.rootEl.dataset.scrollTracking;
+  delete this.rootEl;
+}
+
+module.exports = ScrollTracker;
