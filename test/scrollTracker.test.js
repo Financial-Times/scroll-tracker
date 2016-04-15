@@ -33,7 +33,7 @@ describe('ScrollTracker instance', () => {
 	});
 
 	it('is defined', () => {
-	    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 		expect(scrollTracker).to.be.a('object');
 	});
 
@@ -70,26 +70,26 @@ describe('ScrollTracker instance', () => {
 	const spy = sinon.spy();
     new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: spy});
     window.scrollBy(0, 2500);
-	  setTimeout(() => {
-	    expect(spy.calledOnce).to.be.true;
-	    expect(spy.calledTwice).to.be.false;
-	    window.scrollBy(0, 2500);
-	    setTimeout(() => {
-	      expect(spy.calledTwice).to.be.true;
-	      expect(spy.args[1][0]).to.eql([25, 50]);
-	      window.scrollBy(0, 2500);
-	      setTimeout(() => {
-	        expect(spy.calledThrice).to.be.true;
-	        expect(spy.args[2][0]).to.eql([25, 50, 75]);
-	        window.scrollBy(0, 2500);
-	        setTimeout(() => {
-	          expect(spy.callCount).to.equal(4);
-	          expect(spy.args[3][0]).to.eql([25, 50, 75, 100]);
-	          done();
-	        }, 250);
-	      }, 250);
-	    }, 250);
-	  }, 250);
+    setTimeout(() => {
+      expect(spy.calledOnce).to.be.true;
+      expect(spy.calledTwice).to.be.false;
+      window.scrollBy(0, 2500);
+      setTimeout(() => {
+        expect(spy.calledTwice).to.be.true;
+        expect(spy.args[1][0]).to.eql([25, 50]);
+        window.scrollBy(0, 2500);
+        setTimeout(() => {
+          expect(spy.calledThrice).to.be.true;
+          expect(spy.args[2][0]).to.eql([25, 50, 75]);
+          window.scrollBy(0, 2500);
+          setTimeout(() => {
+            expect(spy.callCount).to.equal(4);
+            expect(spy.args[3][0]).to.eql([25, 50, 75, 100]);
+            done();
+          }, 250);
+        }, 250);
+      }, 250);
+    }, 250);
   });
 
   it('throttles events to 250ms', (done) => {
