@@ -11,8 +11,8 @@ function getPercentageViewable (element) {
 }
 
 module.exports = (function() {
-  let s;
-  let c;
+  var s;
+  var c;
 
   class ScrollTracker {
     constructor({element, buckets, callback, delay}) {
