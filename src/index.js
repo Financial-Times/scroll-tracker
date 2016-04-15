@@ -1,5 +1,3 @@
-'use strict';
-
 const throttle = require('lodash/throttle');
 const isEqual = require('lodash/isEqual');
 
@@ -10,27 +8,31 @@ function getPercentageViewable (element) {
 
 }
 
-var s;
-var c;
+module.exports = (function() {
+  let _scrollHandler;
+  let _currentBuckets;
 
-function ScrollTracker ({element, buckets, callback, delay}) {
-  this.rootEl = element;
-  this.rootEl.dataset.scrollTracking = true;
-  s = throttle(() => {
-    const percentage = getPercentageViewable(element);
-    const currentBuckets = buckets.filter(bucket => bucket <= percentage);
-    if (!isEqual(currentBuckets, c)) {
-      c = currentBuckets;
-      callback(currentBuckets);
+  class ScrollTracker {
+    constructor({element, buckets, callback, delay}) {
+      this.rootEl = element;
+      this.rootEl.dataset.scrollTracking = true;
+      _scrollHandler = throttle(() => {
+        const percentage = getPercentageViewable(element);
+        const currentBuckets = buckets.filter(bucket => bucket <= percentage);
+        if (!isEqual(currentBuckets, _currentBuckets)) {
+          _currentBuckets = currentBuckets;
+          callback(currentBuckets);
+        }
+      }, delay);
+      document.addEventListener('scroll', _scrollHandler);
     }
-  }, delay);
-  document.addEventListener('scroll', s);
-}
 
-ScrollTracker.prototype.destroy = function destroy () {
-  document.removeEventListener('scroll', s);
-  delete this.rootEl.dataset.scrollTracking;
-  delete this.rootEl;
-}
+    destroy () {
+      document.removeEventListener('scroll', _scrollHandler);
+      delete this.rootEl.dataset.scrollTracking;
+      delete this.rootEl;
+    }
+  };
 
-module.exports = ScrollTracker;
+  return ScrollTracker;
+}());
