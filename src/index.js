@@ -3,7 +3,9 @@ const isEqual = require('lodash/isEqual');
 
 function getPercentageViewable (element) {
   const rect = element.getBoundingClientRect();
-	return (100 / rect.height) * (window.innerHeight - rect.top);
+  const percentage = (100 / rect.height) * (window.innerHeight - rect.top);
+  return percentage === Infinity ? 0 : percentage;
+
 }
 
 module.exports = (function() {
@@ -26,7 +28,7 @@ module.exports = (function() {
     }
 
     destroy () {
-      document.removeEventListener('scroll', _scrollHandler.get(this));
+      document.removeEventListener('scroll', _scrollHandler);
       delete this.rootEl.dataset.scrollTracking;
       delete this.rootEl;
     }

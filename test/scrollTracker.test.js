@@ -33,68 +33,63 @@ describe('ScrollTracker instance', () => {
 	});
 
 	it('is defined', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+	    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 		expect(scrollTracker).to.be.a('object');
 	});
 
 	it('has the correct prototype', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+		const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 		expect(Object.getPrototypeOf(scrollTracker)).to.equal(ScrollTracker.prototype);
 	});
 
   it('has rootEl defined as the element passed in to the constructor', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
-    expect(scrollTracker.rootEl).to.equal(document.querySelector('#test'));
+		const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+    	expect(scrollTracker.rootEl).to.equal(document.querySelector('#test'));
   });
 
 	it('sets a data attribute on the root element of the component', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+    	const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 		expect(scrollTracker.rootEl.hasAttribute('data-scroll-tracking')).to.be.true;
 	});
 
   it('adds scroll event listeners to the element passed in to the constructor', () => {
-    const realAddEventListener = document.addEventListener;
+    	const realAddEventListener = document.addEventListener;
 		const addEventListenerSpy = sinon.spy();
 		document.addEventListener = addEventListenerSpy;
 
 		new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 
 		expect(addEventListenerSpy.calledOnce).to.be.true;
-    expect(addEventListenerSpy.args[0][0]).to.equal('scroll');
+    	expect(addEventListenerSpy.args[0][0]).to.equal('scroll');
 		expect(addEventListenerSpy.calledOn(document)).to.be.true;
 
-    document.addEventListener = realAddEventListener;
+    	document.addEventListener = realAddEventListener;
   });
 
   it('fires events when scrolled past a bucket precentage threshold', (done) => {
-    const spy = sinon.spy();
+	const spy = sinon.spy();
     new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: spy});
-    window.scrollTo(0, 2500);
-    setTimeout(() => {
-      expect(spy.calledOnce).to.be.true;
-      expect(spy.args[0][0]).to.eql([25]);
-      window.scrollTo(0, 3000);
-      setTimeout(() => {
-        expect(spy.calledOnce).to.be.true;
-        expect(spy.calledTwice).to.be.false;
-        window.scrollTo(0, 5000);
-        setTimeout(() => {
-          expect(spy.calledTwice).to.be.true;
-          expect(spy.args[1][0]).to.eql([25, 50]);
-          window.scrollTo(0, 7500);
-          setTimeout(() => {
-            expect(spy.calledThrice).to.be.true;
-            expect(spy.args[2][0]).to.eql([25, 50, 75]);
-            window.scrollTo(0, 10000);
-            setTimeout(() => {
-              expect(spy.callCount).to.equal(4);
-              expect(spy.args[3][0]).to.eql([25, 50, 75, 100]);
-              done();
-            }, 250);
-          }, 250);
-        }, 250);
-      }, 250);
-    }, 250);
+    window.scrollBy(0, 2500);
+	  setTimeout(() => {
+	    expect(spy.calledOnce).to.be.true;
+	    expect(spy.calledTwice).to.be.false;
+	    window.scrollBy(0, 2500);
+	    setTimeout(() => {
+	      expect(spy.calledTwice).to.be.true;
+	      expect(spy.args[1][0]).to.eql([25, 50]);
+	      window.scrollBy(0, 2500);
+	      setTimeout(() => {
+	        expect(spy.calledThrice).to.be.true;
+	        expect(spy.args[2][0]).to.eql([25, 50, 75]);
+	        window.scrollBy(0, 2500);
+	        setTimeout(() => {
+	          expect(spy.callCount).to.equal(4);
+	          expect(spy.args[3][0]).to.eql([25, 50, 75, 100]);
+	          done();
+	        }, 250);
+	      }, 250);
+	    }, 250);
+	  }, 250);
   });
 
   it('throttles events to 250ms', (done) => {
@@ -121,14 +116,14 @@ describe('ScrollTracker instance', () => {
   });
 
   it('when destroyed, removes the rootEl property from the object', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
-    expect(scrollTracker.rootEl).to.equal(document.querySelector('#test'));
+    	const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+    	expect(scrollTracker.rootEl).to.equal(document.querySelector('#test'));
 		scrollTracker.destroy();
 		expect(scrollTracker.rootEl).to.be.undefined;
 	});
 
 	it('when destroyed, removes the data attribute which was added during JS initialisation', () => {
-    const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
+    	const scrollTracker = new ScrollTracker({element: document.querySelector('#test'), buckets: [25, 50, 75, 100], callback: () => {}});
 		scrollTracker.destroy();
 		expect(document.querySelector('#test').hasAttribute('data-scroll-tracking')).to.be.false;
 	});
@@ -142,7 +137,7 @@ describe('ScrollTracker instance', () => {
 
 		const trackedElement = document;
 		expect(addEventListenerSpy.calledOnce).to.be.true;
-    expect(addEventListenerSpy.args[0][0]).to.equal('scroll');
+    	expect(addEventListenerSpy.args[0][0]).to.equal('scroll');
 		expect(addEventListenerSpy.calledOn(trackedElement)).to.be.true;
 
 		const trackedElementEventAndHandler = addEventListenerSpy.args[0];
@@ -154,7 +149,7 @@ describe('ScrollTracker instance', () => {
 		scrollTracker.destroy();
 
 		expect(removeEventListenerSpy.calledOnce).to.be.true;
-    expect(removeEventListenerSpy.args[0][0]).to.equal('scroll');
+    	expect(removeEventListenerSpy.args[0][0]).to.equal('scroll');
 		expect(removeEventListenerSpy.calledOn(trackedElement)).to.be.true;
 
 		expect(removeEventListenerSpy.calledWith(...trackedElementEventAndHandler)).to.be.true;
