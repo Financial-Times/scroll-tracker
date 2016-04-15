@@ -9,26 +9,26 @@ function getPercentageViewable (element) {
 }
 
 module.exports = (function() {
-  let _scrollHandler;
-  let _currentBuckets;
+  let scrollHandler_;
+  let currentBuckets_;
 
   class ScrollTracker {
     constructor({element, buckets, callback, delay}) {
       this.rootEl = element;
       this.rootEl.dataset.scrollTracking = true;
-      _scrollHandler = throttle(() => {
+      scrollHandler_ = throttle(() => {
         const percentage = getPercentageViewable(element);
         const currentBuckets = buckets.filter(bucket => bucket <= percentage);
-        if (!isEqual(currentBuckets, _currentBuckets)) {
-          _currentBuckets = currentBuckets;
+        if (!isEqual(currentBuckets, currentBuckets_)) {
+          currentBuckets_ = currentBuckets;
           callback(currentBuckets);
         }
       }, delay);
-      document.addEventListener('scroll', _scrollHandler);
+      document.addEventListener('scroll', scrollHandler_);
     }
 
     destroy () {
-      document.removeEventListener('scroll', _scrollHandler);
+      document.removeEventListener('scroll', scrollHandler_);
       delete this.rootEl.dataset.scrollTracking;
       delete this.rootEl;
     }
