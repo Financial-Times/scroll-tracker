@@ -10,8 +10,8 @@ function getPercentageViewable (element) {
 
 }
 
-let s;
-let c;
+var s;
+var c;
 
 function ScrollTracker ({element, buckets, callback, delay}) {
   this.rootEl = element;
